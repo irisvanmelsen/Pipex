@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:38:58 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/09 18:39:32 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:27:20 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,25 @@ char	*find_path(char **envp)
 	while (envp[index])
 	{
 		if (ft_strncmp(envp[index], "PATH=", 5) == 0)
-			break ;
+			return (envp[index] + 5);
 		index++;
 	}
-	return (envp[index] + 5);
+	return (NULL);
 }
 
-int	split_args(char **argv, t_pipex *pipex)
+int	split_args(char **argv, int argc, t_pipex *pipex)
 {
-	pipex->cmd1 = ft_split(argv[2], ' ');
-	if (!pipex->cmd1)
-		return (EXIT_FAILURE);
-	pipex->cmd2 = ft_split(argv[3], ' ');
-	if (!pipex->cmd2)
-		return (EXIT_FAILURE);
+	int	i;
+
+	i = 2;
+	pipex->cmds = ft_calloc(sizeof (t_cmd), argc - 3);
+	if (!pipex->cmds)
+		return (print_error(get_error_name(ERROR_ALLOCATION)));
+	while (i != argc - 1)
+	{
+		pipex->cmds[i - 2].argv = ft_split(argv[i], ' ');
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }
 
@@ -45,10 +50,7 @@ char	**split_path(char *path)
 	index = 0;
 	path2 = ft_split(path, ':');
 	if (!path)
-	{
-		write(1, "Can't Split Path\n", 17);
 		return (NULL);
-	}
 	path2 = put_slash(path2);
 	return (path2);
 }
@@ -76,15 +78,16 @@ char	**put_slash(char **path)
 
 int	check_args(char **argv, int argc, char **envp, t_pipex *pipex)
 {
-	valid_args(argc, argv);
+	int	index;
+
+	index = 0;
+	if (argc != 5)
+		return (print_error(get_error_name(ERROR_ARGUMENTS)));
 	pipex->path = find_path(envp);
-	if (!pipex->path)
-		return (EXIT_FAILURE);
-	if (split_args(argv, pipex) == 1)
-	{
-		write(1, "Can't Split Arguments\n", 13);
-		return (EXIT_FAILURE);
-	}
+	if (split_args(argv, argc, pipex) == 1)
+		return (print_error("Can't Split Arguments"));
 	pipex->split_path = split_path(pipex->path);
+	if (!pipex->split_path)
+		return (print_error(get_error_name(ERROR_ALLOCATION)));
 	return (EXIT_SUCCESS);
 }

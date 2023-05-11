@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 15:00:06 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/11 13:58:24 by ivan-mel         ###   ########.fr       */
+/*   Created: 2023/05/11 13:31:52 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/05/11 18:59:15 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	valid_args(int argc)
+char	*get_error_name(t_error er)
 {
-	int	index;
+	static char	*str[] = {"Allocation Failure", "Invalid Type of Arguments"};
 
-	index = 0;
-	if (argc != 5)
-	{
-		write(1, "Invalid Amount of Arguments\n", 28);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+	return (str[er]);
+}
+
+int	print_error(char *str)
+{
+	write (STDERR_FILENO, str, ft_strlen(str));
+	write (STDERR_FILENO, "\n", 1);
+	return (EXIT_FAILURE);
 }

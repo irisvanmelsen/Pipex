@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 15:00:06 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/11 13:58:24 by ivan-mel         ###   ########.fr       */
+/*   Created: 2023/05/11 18:35:53 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/05/11 19:00:47 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-int	valid_args(int argc)
-{
-	int	index;
+execute()
 
-	index = 0;
-	if (argc != 5)
-	{
-		write(1, "Invalid Amount of Arguments\n", 28);
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
+if (pipe(fd) == -1)
+	return (EXIT_FAILURE);
+id1 = fork();
+if (child_process)
+{
+	dup2()
+	execve()
+}
+else
+{
+	close()
 }

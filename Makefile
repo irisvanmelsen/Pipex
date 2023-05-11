@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 17:56:52 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/05/09 18:27:07 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/05/11 15:01:45 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ RM 			=	rm -rf
 SRC			=	main.c \
 				parsing.c \
 				parsing_utils.c \
-				free.c 
+				free.c \
+				error.c
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
@@ -56,7 +57,7 @@ all:	${NAME}
 
 ${NAME}: ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
-	@{MAKE} -C libft
+	@${MAKE} -C libft
 	@${CC} $^ ${LIBS} ${FLAGS} -o ${NAME}
 	@echo ${Green} Complete 😊 ${Color_off}
 

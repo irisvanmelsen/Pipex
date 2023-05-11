@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:06:43 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/09 18:10:31 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:58:52 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	*pipex;
 	// int		fd[2];
-	int		infile;
+	int		files[2];
 
 	pipex = ft_calloc(1, sizeof(t_pipex));
 	if (!pipex)
-	{
-		write(1, "Wrong Allocation\n", 17);
-		return(EXIT_FAILURE);
-	}
-	infile = open(argv[1], O_RDONLY);
+		return (print_error(get_error_name(ERROR_ALLOCATION)));
+	files[READ] = open(argv[1], O_RDONLY);
+	if (!files[READ])
+		return (print_error(strerror(errno)));
+	files[WRITE] = open(argv[1], O_RDONLY);
+	if (!files[WRITE])
+		return (print_error(strerror(errno)));
 	check_args(argv, argc, envp, pipex);
 }
