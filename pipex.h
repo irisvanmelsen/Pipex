@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:30:50 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/11 18:56:07 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:12:21 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,25 @@
 # include <sys/errno.h>
 # include <string.h>
 
-typedef enum e_files
-{
+typedef enum e_files {
 	READ,
 	WRITE,
 }	t_files;
 
-typedef enum e_error
-{
+typedef enum e_error {
 	ERROR_ALLOCATION,
 	ERROR_ARGUMENTS,
+	ERROR_FORK,
+	ERROR_PIPE,
 }	t_error;
 
-typedef struct s_cmd
-{
+typedef struct s_cmd {
 	char	**argv;
 }	t_cmd;
 
-typedef struct s_pipex
-{
-	char	*path;
+typedef struct s_pipex {
 	char	**split_path;
-
+	int		pid;
 	t_cmd	*cmds;
 }	t_pipex;
 

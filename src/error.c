@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:31:52 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/11 18:59:15 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:54:41 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_error_name(t_error er)
 {
-	static char	*str[] = {"Allocation Failure", "Invalid Type of Arguments"};
+	static char	*str[] = {"Allocation Failure", "Invalid Type of Argument, Fork Error, Pipe Error"};
 
 	return (str[er]);
 }

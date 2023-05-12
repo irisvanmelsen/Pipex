@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:38:58 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/11 17:27:20 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:18:24 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ char	**split_path(char *path)
 	char	**path2;
 
 	index = 0;
-	path2 = ft_split(path, ':');
 	if (!path)
 		return (NULL);
+	path2 = ft_split(path, ':');
 	path2 = put_slash(path2);
 	return (path2);
 }
@@ -78,16 +78,17 @@ char	**put_slash(char **path)
 
 int	check_args(char **argv, int argc, char **envp, t_pipex *pipex)
 {
-	int	index;
+	int		index;
+	char	*path;
 
 	index = 0;
 	if (argc != 5)
 		return (print_error(get_error_name(ERROR_ARGUMENTS)));
-	pipex->path = find_path(envp);
-	if (split_args(argv, argc, pipex) == 1)
-		return (print_error("Can't Split Arguments"));
-	pipex->split_path = split_path(pipex->path);
+	path = find_path(envp);
+	pipex->split_path = split_path(path);
 	if (!pipex->split_path)
 		return (print_error(get_error_name(ERROR_ALLOCATION)));
+	if (split_args(argv, argc, pipex) == 1)
+		return (print_error("Can't Split Arguments"));
 	return (EXIT_SUCCESS);
 }
