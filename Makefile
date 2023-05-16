@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 17:56:52 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/05/11 15:01:45 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/05/16 16:48:15 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC			=	main.c \
 				parsing.c \
 				parsing_utils.c \
 				free.c \
-				error.c
+				error_free.c
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj

@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 13:31:52 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/12 14:54:41 by ivan-mel         ###   ########.fr       */
+/*   Created: 2023/05/16 15:44:53 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/05/16 16:42:38 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pipex.h"
 
-char	*get_error_name(t_error er)
+int	check_stdin(int file)
 {
-	static char	*str[] = {"Allocation Failure", "Invalid Type of Argument, Fork Error, Pipe Error"};
-
-	return (str[er]);
+	if (dup2(file, STDIN_FILENO) == -1)
+	{
+		close(file);
+		return (print_error(get_error_name(ERROR_DUP2)));
+	}
+	close (file);
+	return (0);
 }
 
-int	print_error(char *str)
+int	check_stdout(int file)
 {
-	write (STDERR_FILENO, str, ft_strlen(str));
-	write (STDERR_FILENO, "\n", 1);
-	return (EXIT_FAILURE);
+	if (dup2(file, STDOUT_FILENO) == -1)
+	{
+		close(file);
+		return (print_error(get_error_name(ERROR_DUP2)));
+	}
+	close (file);
+	return (0);
 }
