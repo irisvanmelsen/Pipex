@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:30:50 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/16 18:09:41 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/19 21:32:51 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ typedef enum e_error {
 	ERROR_FORK,
 	ERROR_PIPE,
 	ERROR_DUP2,
+	ERROR_PATH,
 }	t_error;
 
 typedef struct s_cmd {
-	char	**argv;
-	int		cmd_nb;
+	char	**args;
 }	t_cmd;
 
 typedef struct s_pipex {
@@ -45,26 +45,25 @@ typedef struct s_pipex {
 	int		pid;
 	int		argc;
 	char	**envp;
+	char	**argv;
+	int		count;
 	t_cmd	*cmds;	
 }	t_pipex;
 
 // PARSING:
 
 char	*find_path(char **envp);
-int		split_args(char **argv, t_pipex *pipex);
+int		split_args(t_pipex *pipex);
 char	**split_path(char *path);
 char	**put_slash(char **path);
-int		check_args(char **argv, t_pipex *pipex);
-
-// PARSING_UTILS
-
-int		cmd_amount(char **cmds);
+int		check_args(t_pipex *pipex);
 
 // EXECUTE
 
-void	child_first_processs(t_pipex *pipex, int files[2], char **argv, int pipe[2]);
+void	child_first(t_pipex *pipex, int pipes[2]);
+void	child_last(t_pipex *pipex, int pipes[2]);
 char	*cmds_in_path(char **path, char **split_argv, t_pipex *pipex);
-void	execute(t_pipex *pipex, int files[2], char **argv);
+void	execute(t_pipex *pipex, int pipes[2]);
 
 // EXECUTE_UTILS
 

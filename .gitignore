@@ -1,0 +1,6 @@
+pipex
+*.o
+infile
+outfile
+.vscode/
+libft.a
