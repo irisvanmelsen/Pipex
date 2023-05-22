@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 17:56:52 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/05/19 21:31:17 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/05/22 14:44:33 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER		:=	-I libft
 HEADERS		:=	libft/libft.h
 
 #UTILS
-FLAGS 		=	-fsanitize=address -g
+FLAGS 		=	-Wall -Werror -Wextra -fsanitize=address -g
 CC 			= 	gcc
 RM 			=	rm -rf
 SRC			=	main.c \

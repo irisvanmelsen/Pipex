@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:06:43 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/19 21:35:33 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/22 15:20:03 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,15 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipex	*pipex;
+	t_pipex	pipex;
 	int		pipes[2];
 
-	pipex = ft_calloc(1, sizeof(t_pipex));
-	if (!pipex)
-		return (print_error(get_error_name(ERROR_ALLOCATION)));
-	pipex->argc = argc;
-	pipex->envp = envp;
-	pipex->argv = argv;
-	pipex->count = argc - 3;
-	check_args(pipex);
-	execute(pipex, pipes);
+	if (argc != 5)
+		return (print_error(get_error_name(ERROR_ARGUMENTS)));
+	pipex.argc = argc - 1;
+	pipex.envp = envp;
+	pipex.argv = &argv[1];
+	pipex.count = argc - 3;
+	check_args(&pipex);
+	execute(&pipex, pipes);
 }

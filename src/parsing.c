@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:38:58 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/19 20:29:45 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/22 14:55:34 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,18 @@ char	*find_path(char **envp)
 int	split_args(t_pipex *pipex)
 {
 	int	i;
+	int	j;
 
-	i = 2;
-	pipex->cmds = ft_calloc(sizeof (t_cmd), pipex->argc - 2);
+	i = 1;
+	j = 0;
+	pipex->cmds = ft_calloc(sizeof (t_cmd), pipex->argc - 1);
 	if (!pipex->cmds)
 		return (print_error(get_error_name(ERROR_ALLOCATION)));
-	while (i != pipex->argc - 1)
+	while (i != pipex->argc)
 	{
-		pipex->cmds[i - 2].args = ft_split(pipex->argv[i], ' ');
+		pipex->cmds[j].args = ft_split(pipex->argv[i], ' ');
 		i++;
+		j++;
 	}
 	return (EXIT_SUCCESS);
 }
@@ -84,8 +87,6 @@ int	check_args(t_pipex *pipex)
 	char	*path;
 
 	index = 0;
-	if (pipex->argc != 5)
-		return (print_error(get_error_name(ERROR_ARGUMENTS)));
 	path = find_path(pipex->envp);
 	pipex->split_path = split_path(path);
 	if (!pipex->split_path)
