@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:35:53 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 16:34:48 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/22 19:21:19 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	child_first(t_pipex *pipex, int pipes[2])
 	check_stdin(fd);
 	check_stdout(pipes[WRITE]);
 	cmds_in_path(pipex->split_path, pipex->cmds[0].args, pipex);
-	exit(56);
+	exit(127);
 }
 
 void	child_last(t_pipex *pipex, int pipes[2])
@@ -51,52 +51,29 @@ void	child_last(t_pipex *pipex, int pipes[2])
 	check_stdout(fd);
 	check_stdin(pipes[READ]);
 	cmds_in_path(pipex->split_path, pipex->cmds[1].args, pipex);
-	exit(55);
+	exit(127);
 }
 
-char	*cmds_in_path(char **path, char **split_argv, t_pipex *pipex)
+void	cmds_in_path(char **path, char **split_argv, t_pipex *pipex)
 {
-	int		i;
 	char	*cmd;
 
-	i = 0;
 	cmd = ft_strdup(split_argv[0]);
 	if (!cmd)
-		return (NULL);
-	if (path)
-	{
-		while (access(cmd, F_OK | X_OK) == -1 && path[i])
-		{
-			free(cmd);
-			cmd = ft_strjoin(pipex->split_path[i], split_argv[0]);
-			if (!cmd)
-				return (NULL);
-			i++;
-		}
-		if (path[i] == NULL)
-		{
-			print_error(get_error_name(ERROR_PATH));
-			exit(127);
-		}
-	}
+		return ;
+	cmd = find_access(path, split_argv, pipex, cmd);
 	if (execve(cmd, split_argv, pipex->envp) == -1)
 	{
 		free(pipex->split_path);
 		perror("error");
 	}
-	exit(EXIT_FAILURE);
+	return ;
 }
 
-void	execute(t_pipex *pipex, int pipes[2])
+void	children_spawn(t_pipex *pipex, int pipes[2])
 {
 	int	i;
-	int	status;
 
-	if (pipe(pipes) == -1)
-	{
-		print_error(get_error_name(ERROR_PIPE));
-		return ;
-	}
 	i = 0;
 	while (i < pipex->count)
 	{
@@ -115,6 +92,19 @@ void	execute(t_pipex *pipex, int pipes[2])
 		}
 		i++;
 	}
+}
+
+void	execute(t_pipex *pipex, int pipes[2])
+{
+	int	status;
+
+	status = 0;
+	if (pipe(pipes) == -1)
+	{
+		print_error(get_error_name(ERROR_PIPE));
+		return ;
+	}
+	children_spawn(pipex, pipes);
 	close(pipes[READ]);
 	close(pipes[WRITE]);
 	waitpid(pipex->pid, &status, 0);

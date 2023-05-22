@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/11 17:13:38 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/03/22 15:11:36 by ivan-mel         ###   ########.fr        #
+#    Updated: 2022/11/01 19:54:10 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ SRC			=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
 				ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c \
 				ft_strlcpy.c ft_strlen.c ft_strmapi.c ft_strncmp.c \
 				ft_strnstr.c ft_strrchr.c ft_strtrim.c ft_substr.c \
-				ft_tolower.c ft_toupper.c get_next_line.c get_next_line_utils.c \
-				hexafunctions.c printfunctions.c ft_printf.c
+				ft_tolower.c ft_toupper.c
 
 SRCB		=	ft_lstnew_bonus.c ft_lstadd_front_bonus.c \
 				ft_lstsize_bonus.c ft_lstlast_bonus.c \

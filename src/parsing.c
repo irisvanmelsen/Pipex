@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:38:58 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 14:55:34 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/22 17:54:49 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ int	split_args(t_pipex *pipex)
 
 char	**split_path(char *path)
 {
-	int		index;
 	char	**path2;
 
-	index = 0;
 	if (!path)
 		return (NULL);
 	path2 = ft_split(path, ':');
@@ -83,10 +81,8 @@ char	**put_slash(char **path)
 
 int	check_args(t_pipex *pipex)
 {
-	int		index;
 	char	*path;
 
-	index = 0;
 	path = find_path(pipex->envp);
 	pipex->split_path = split_path(path);
 	if (!pipex->split_path)

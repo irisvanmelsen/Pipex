@@ -6,7 +6,7 @@
 #    By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/25 17:56:52 by ivan-mel          #+#    #+#              #
-#    Updated: 2023/05/22 14:44:33 by ivan-mel         ###   ########.fr        #
+#    Updated: 2023/05/22 18:40:44 by ivan-mel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEADER		:=	-I libft
 HEADERS		:=	libft/libft.h
 
 #UTILS
-FLAGS 		=	-Wall -Werror -Wextra -fsanitize=address -g
+FLAGS 		=	-Wall -Werror -Wextra
 CC 			= 	gcc
 RM 			=	rm -rf
 SRC			=	main.c \
@@ -25,6 +25,10 @@ SRC			=	main.c \
 				execute.c \
 				execute_utils.c \
 				error_free.c
+
+ifdef DEBUG
+	FLAGS += -g
+endif
 
 #OBJB_FILES	=	${SRCB:.c=.o}
 OBJ_DIR		:=	./obj
@@ -60,7 +64,7 @@ ${NAME}: ${OBJ}
 	@echo ${Blue} Building ${NAME} ${Color_Off}
 	@${MAKE} -C libft
 	@${CC} $^ ${LIBS} ${FLAGS} -o ${NAME}
-	@echo ${Green} Complete 😊 ${Color_off}
+	@echo ${Green} Complete 😊 ${Color_Off}
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS) | $(OBJ_DIR)
 # @mkdir -p ${OBJ_DIR}
@@ -75,7 +79,7 @@ $(OBJ_DIR):
 #	@$(MAKE) WITH_BONUS=true all
 
 clean:
-	@echo ${Yellow} Deleting ${OBJ_DIR} ${Color_off}
+	@echo ${Yellow} Deleting ${OBJ_DIR} ${Color_Off}
 	@${MAKE} -C libft fclean
 	@${RM} ${OBJ_DIR}
 fclean: clean

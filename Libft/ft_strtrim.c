@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strtrim.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: ivan-mel <marvin@codam.nl>                   +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2022/10/17 15:05:56 by ivan-mel      #+#    #+#                 */
-/*   Updated: 2022/10/21 17:49:44 by ivan-mel      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/17 15:05:56 by ivan-mel          #+#    #+#             */
+/*   Updated: 2023/05/22 18:19:53 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 
 	i = 0;
 	j = ft_strlen(s1);
-	while (ft_strchr(set, s1[i]) != '\0' && i < ft_strlen(s1))
+	while (ft_strchr(set, s1[i]) != NULL && i < ft_strlen(s1))
 		i++;
-	while (ft_strchr(set, s1[j]) != '\0' && i < j)
+	while (ft_strchr(set, s1[j]) != NULL && i < j)
 			j--;
 	result = ft_substr(s1, i, (j - i + 1));
 	return (result);
