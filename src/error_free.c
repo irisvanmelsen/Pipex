@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 13:31:52 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 19:18:13 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:20:32 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 
 char	*get_error_name(t_error er)
 {
-	static char	*str[] = {[ERROR_ALLOCATION] = "Allocation Failure", \
+	static char	*str[] = {\
+		[ERROR_ALLOCATION] = "Allocation Failure", \
 		[ERROR_ARGUMENTS] = "Invalid Type of Argument", \
 		[ERROR_FORK] = "Fork Error", \
 		[ERROR_PIPE] = "Pipe Error", \
 		[ERROR_DUP2] = "Duplication Error", \
-		[ERROR_PATH] = "Command not Found"};
+		[ERROR_PATH] = "Command not Found", \
+		[ERROR_EXECVE] = "Execution Error", \
+		[ERROR_ENV_PATH] = "Path not Found"};
 
 	return (str[er]);
 }

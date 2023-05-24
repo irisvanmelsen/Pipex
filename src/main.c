@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 13:06:43 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 18:37:16 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:09:58 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ int	main(int argc, char **argv, char **envp)
 	pipex.envp = envp;
 	pipex.argv = &argv[1];
 	pipex.count = argc - 3;
+	if (check_char(pipex.argv) == 1)
+		print_error(get_error_name(ERROR_ARGUMENTS));
 	check_args(&pipex);
 	execute(&pipex, pipes);
+	system("leaks pipex");
 }

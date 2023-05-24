@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 18:35:53 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 19:21:19 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:31:28 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	child_first(t_pipex *pipex, int pipes[2])
 	if (fd == -1)
 	{
 		print_error(strerror(errno));
-		return ;
+		exit(errno);
 	}
 	check_stdin(fd);
 	check_stdout(pipes[WRITE]);
 	cmds_in_path(pipex->split_path, pipex->cmds[0].args, pipex);
-	exit(127);
+	exit(1);
 }
 
 void	child_last(t_pipex *pipex, int pipes[2])
@@ -46,26 +46,35 @@ void	child_last(t_pipex *pipex, int pipes[2])
 	if (fd == -1)
 	{
 		print_error(strerror(errno));
-		return ;
+		exit(errno);
 	}
 	check_stdout(fd);
 	check_stdin(pipes[READ]);
 	cmds_in_path(pipex->split_path, pipex->cmds[1].args, pipex);
-	exit(127);
+	exit(1);
 }
 
 void	cmds_in_path(char **path, char **split_argv, t_pipex *pipex)
 {
 	char	*cmd;
+	char	*command_path;
 
 	cmd = ft_strdup(split_argv[0]);
 	if (!cmd)
 		return ;
-	cmd = find_access(path, split_argv, pipex, cmd);
-	if (execve(cmd, split_argv, pipex->envp) == -1)
+	command_path = find_access(path, split_argv, pipex, cmd);
+	if (!command_path)
 	{
-		free(pipex->split_path);
-		perror("error");
+		write(STDERR_FILENO, "Pipex: ", 7);
+		write(STDERR_FILENO, cmd, ft_strlen(cmd));
+		write(STDERR_FILENO, ": Command not Found\n", 20);
+		free(cmd);
+		exit(127);
+	}
+	if (execve(command_path, split_argv, pipex->envp) == -1)
+	{
+		print_error(get_error_name(ERROR_EXECVE));
+		exit(EXIT_FAILURE);
 	}
 	return ;
 }
@@ -81,7 +90,7 @@ void	children_spawn(t_pipex *pipex, int pipes[2])
 		if (pipex->pid == -1)
 		{
 			print_error(get_error_name(ERROR_FORK));
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 		if (pipex->pid == 0)
 		{

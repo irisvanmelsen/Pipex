@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 16:30:50 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 19:10:10 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:19:48 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef enum e_error {
 	ERROR_PIPE,
 	ERROR_DUP2,
 	ERROR_PATH,
+	ERROR_EXECVE,
+	ERROR_ENV_PATH,
 }	t_error;
 
 typedef struct s_cmd {
@@ -72,6 +74,7 @@ void	execute(t_pipex *pipex, int pipes[2]);
 int		check_stdin(int file);
 int		check_stdout(int file);
 char	*find_access(char **path, char **split_argv, t_pipex *pipex, char *cmd);
+int		check_char(char *argv[]);
 
 // FREE:
 

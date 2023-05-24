@@ -6,7 +6,7 @@
 /*   By: ivan-mel <ivan-mel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 14:38:58 by ivan-mel          #+#    #+#             */
-/*   Updated: 2023/05/22 17:54:49 by ivan-mel         ###   ########.fr       */
+/*   Updated: 2023/05/24 14:19:42 by ivan-mel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*find_path(char **envp)
 			return (envp[index] + 5);
 		index++;
 	}
-	return (NULL);
+	exit(print_error(get_error_name(ERROR_ENV_PATH)));
 }
 
 int	split_args(t_pipex *pipex)
